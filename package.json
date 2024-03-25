@@ -5,7 +5,7 @@
   "description": "API rest created for AESolutions maintenance app",
   "main": "index.js",
   "scripts": {
-    "start": " nodemon index.js"
+    "start": "node index.js"
   },
   "author": "Carlos Daniel Galvan Astorga",
   "license": "ISC",
