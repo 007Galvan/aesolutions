@@ -2,6 +2,7 @@ import express  from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import routerCostumers from "./routes/routerCostumers.js"
+import routerUsers from "./routes/routerUsers.js"
 import conectarDB from "./config/db.js";
 
 
@@ -31,6 +32,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 
 app.use("/aesolutions/costumers", routerCostumers)
+app.use("/aesolutions/users", routerUsers);
 
 
 const port = process.env.PORT || 4000;
