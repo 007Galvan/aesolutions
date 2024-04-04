@@ -57,6 +57,7 @@ const saveCostumer = async (req, res) => {
     costumer.address = req.body.address || costumer.address;
     costumer.phone = req.body.phone || costumer.phone;
     costumer.email = req.body.email || costumer.email;
+    costumer.machines = req.body.machines || costumer.machines;
   
     try {
       // findOneAndUpdate(consulta,nuevo,{new:true}

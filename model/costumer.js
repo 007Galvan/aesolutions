@@ -22,6 +22,10 @@ const costumerSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
+    },
+    machines: {
+      type: Array,
+      required: true,
     }
     // veterinario: {
     //   type: mongoose.Schema.Types.ObjectId,
