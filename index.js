@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import routerCostumers from "./routes/routerCostumers.js"
 import routerUsers from "./routes/routerUsers.js"
+import routerActivities from "./routes/routerActivities.js";
 import conectarDB from "./config/db.js";
 
 
@@ -31,8 +32,9 @@ app.use(express.json())
 //decodifica la informacion y la convierte en formato json//
 app.use(express.urlencoded({extended:true}));
 
-app.use("/aesolutions/costumers", routerCostumers)
+app.use("/aesolutions/costumers", routerCostumers);
 app.use("/aesolutions/users", routerUsers);
+app.use("/aesolutions/activities", routerActivities);
 
 
 const port = process.env.PORT || 4000;
