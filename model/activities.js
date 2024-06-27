@@ -36,6 +36,10 @@ const activitySchema = mongoose.Schema(
         type: Array,
         required: true,
       },
+      datesOfActivity:{
+        type: Array,
+        required: true,
+      }
     // veterinario: {
     //   type: mongoose.Schema.Types.ObjectId,
     //   ref: "Veterinario",

@@ -1,16 +1,35 @@
 import Activity from "../model/activities.js";
+import Summary from "../model/summary.js";
 
 const saveActivity = async (req, res) => {
     const activity = new Activity(req.body);
+
+ // Parse initial date and number of days from request parameters
+ const { date, notification } = activity;
+ let startDate = new Date(date);
+ let datesOfActivity = [];
+ datesOfActivity.push({ date: startDate });
+ 
+ // Generate documents for each day
+ for (let i = 0; i < 50; i++) {
+   let currentDate = new Date(startDate);
+   currentDate.setDate(startDate.getDate() + parseInt(notification));
+   datesOfActivity.push({ date: currentDate });
+   startDate = currentDate;
+  }
+  //asignar las fechas a la actividad
+  activity.datesOfActivity = req.body.datesOfActivity || datesOfActivity;
+  
     try {
       const storedActivity = await activity.save();
       // res.json(storedCostumer);
       res.status(200).send({
         message: "activity saved succesfuly",
         status:"ok",
-        storedActivity
+        storedActivity,
     })
       console.log('se guardó la actividad')
+      checkActivities();
     } catch (error) {
       console.log(error);
     }
@@ -92,14 +111,62 @@ const deleteActivity= async (req, res) => {
   }
 };
 
+const checkActivities = async (req, res)=>{
+
+  const activities = await Activity.find();
+  const summaryData = await Summary.find();
+  console.log(activities);
+  console.log(summaryData);
+
+  const currentDate = new Date();
+    console.log(currentDate.toLocaleDateString());
+
+    const filteredActivities = activities.filter( item => {
+      if(item.datesOfActivity.some( item2 =>  item2.date.toLocaleDateString() === currentDate.toLocaleDateString()))
+      {
+        return(item)
+      }
+      })
+
+      if(summaryData.length > 0){
+        const newFilteredActivities = filteredActivities.filter( item => {
+          if(!summaryData.some(item2 => item2.idActivity === item._id.toString())){
+            return({...item})
+            // console.log('fail, es igual');
+            // return;
+          }
+        })
+        console.log(newFilteredActivities);
+        for(let i = 0; i < newFilteredActivities.length; i++ ){
+          const summary = new Summary();
+          summary.idActivity = newFilteredActivities[i]._doc._id.toString();
+          await summary.save();
+        }
+      }else{
+
+        for(let i = 0; i < filteredActivities.length; i++ ){
+          const summary = new Summary();
+          summary.idActivity = filteredActivities[i]._id.toString();
+          await summary.save();
+        }
+
+      }
+
+    //   for(let i = 0; i < filteredActivities.length; i++ ){
+    //     if(!summaryData.some( item =>  item.idActivity === filteredActivities[i]._id))
+    //  {
+    //     const summary = new Summary();
+    //     summary.idActivity = filteredActivities[i]._id;
+    //     await summary.save();
+    //   }
+    //   }
+    
 
 
-
-
-
-
+};
 
 export {saveActivity,
         getActivities,
         updateActivity,
-        deleteActivity}
+        deleteActivity,
+        checkActivities}

@@ -2,12 +2,14 @@ import express  from "express";
 import { saveActivity,
          getActivities,
          updateActivity,
-         deleteActivity } from "../controller/activitiesController.js";
+         deleteActivity,
+        checkActivities } from "../controller/activitiesController.js";
 
 const router = express.Router();
 
 router
 .post("/", saveActivity)
+// .post("/",checkActivities)
 .get("/", getActivities );
 
 router

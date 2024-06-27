@@ -1,9 +1,12 @@
 import express  from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { scheduleJob } from "node-schedule";
+import { checkActivities } from "./controller/activitiesController.js";
 import routerCostumers from "./routes/routerCostumers.js"
 import routerUsers from "./routes/routerUsers.js"
 import routerActivities from "./routes/routerActivities.js";
+import routerSummary from "./routes/routerSummary.js";
 import conectarDB from "./config/db.js";
 
 
@@ -35,6 +38,7 @@ app.use(express.urlencoded({extended:true}));
 app.use("/aesolutions/costumers", routerCostumers);
 app.use("/aesolutions/users", routerUsers);
 app.use("/aesolutions/activities", routerActivities);
+app.use("/aesolutions/summary", routerSummary);
 
 
 const port = process.env.PORT || 4000;
@@ -42,3 +46,9 @@ const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`escuchando en el puerto ${port}`);
 })
+
+const job = scheduleJob('25 * * * *', checkActivities);
+// Handle errors
+job.on('error', (error) => {
+  console.error('Job error:', error);
+});
