@@ -35,7 +35,7 @@ conectarDB();
 app.use(express.json())
 //decodifica la informacion y la convierte en formato json//
 app.use(express.urlencoded({extended:true}));
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/aesolutions/costumers", routerCostumers);
 app.use("/aesolutions/users", routerUsers);
