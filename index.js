@@ -49,7 +49,7 @@ app.listen(port, () => {
     console.log(`escuchando en el puerto ${port}`);
 })
 
-const job = scheduleJob('25 * * * *', checkActivities);
+const job = scheduleJob('55 * * * *', checkActivities);
 // Handle errors
 job.on('error', (error) => {
   console.error('Job error:', error);
