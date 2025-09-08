@@ -56,7 +56,7 @@ app.listen(4000, '0.0.0.0', () => {
   console.log("API running on port 4000");
 });
 
-const job = scheduleJob('0 0 * * * *', checkActivities);
+const job = scheduleJob('0 6 * * * *', checkActivities);
 // Handle errors
 job.on('error', (error) => {
   console.error('Job error:', error);
