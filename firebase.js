@@ -2,8 +2,12 @@ import admin from 'firebase-admin';
 import { readFile } from 'fs/promises';
 
 
-const serviceAccount = JSON.parse(
-    await readFile(new URL('./serviceAccountKey.json', import.meta.url))
+// const serviceAccount = JSON.parse(
+//     await readFile(new URL('./serviceAccountKey.json', import.meta.url))
+//   );
+  //service for railway
+  const serviceAccount = JSON.parse(
+    await readFile(new URL(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON, import.meta.url))
   );
 
 admin.initializeApp({
