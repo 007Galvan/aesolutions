@@ -48,13 +48,13 @@ app.use("/aesolutions/summary", routerSummary);
 
 const port = process.env.PORT || 4000;
 
-// app.listen(port, () => {
-//     console.log(`escuchando en el puerto ${port}`);
-// })
+app.listen(port, () => {
+    console.log(`escuchando en el puerto ${port}`);
+})
 
-app.listen(4000, '0.0.0.0', () => {
-  console.log("API running on port 4000");
-});
+// app.listen(4000, '0.0.0.0', () => {
+//   console.log("API running on port 4000");
+// });
 
 const job = scheduleJob('0 6 * * * *', checkActivities);
 // Handle errors
