@@ -6,7 +6,7 @@ import admin from 'firebase-admin';
 //     await readFile(new URL('./serviceAccountKey.json', import.meta.url))
 //   );
   //service for railway
-  const serviceAccount = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON;
+  const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
 
   if (!serviceAccount) {
   throw new Error("❌ Missing GOOGLE_APPLICATION_CREDENTIALS_JSON in Railway!");
