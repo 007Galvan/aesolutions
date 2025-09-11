@@ -14,20 +14,28 @@ import conectarDB from "./config/db.js";
 
 const app = express();
 
-// const dominiosPermitidos = [process.env.FRONTEND_URL];
+const dominiosPermitidos = [process.env.FRONTEND_URL];
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (dominiosPermitidos.indexOf(origin) !== -1) {
-//       // El Origen del Request esta permitido
-//       callback(null, true);
-//     } else {
-//       callback(new Error("No permitido por CORS"));
-//     }
-//   },
-// };
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (dominiosPermitidos.indexOf(origin) !== -1) {
+      // El Origen del Request esta permitido
+      callback(null, true);
+    } else {
+      callback(new Error("No permitido por CORS"));
+    }
+  },
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
+
+// app.use(cors({
+//   origin: process.env.FRONTEND_URL || "*", // allow your frontend
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // allow all needed methods
+//   allowedHeaders: ["Content-Type", "Authorization"], // headers your frontend sends
+// }));
+// app.options("*", cors()); // allow preflight for all routes
+
 
 // app.use(bodyParser.json); // handle base64 payload
 
