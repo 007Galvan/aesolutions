@@ -177,7 +177,7 @@ const checkActivities = async (req, res)=>{
           const nSummary = await summary.save();
            console.log(nSummary);
            try {
-            await axios.post( `http://192.168.100.12:4000/aesolutions/activities/sendNotification`, {
+            await axios.post( `https://aesolutions-production.up.railway.app/aesolutions/activities/sendNotification`, {
             'nameActivity': newFilteredActivities[i]._doc.nameActivity,
             'idActivity': newFilteredActivities[i]._doc._id,
             '_id': nSummary._id})
@@ -195,7 +195,7 @@ const checkActivities = async (req, res)=>{
           const nSummary = await summary.save();
           console.log(nSummary);
           try {
-             await axios.post( `http://192.168.100.12:4000/aesolutions/activities/sendNotification`, {
+             await axios.post( `https://aesolutions-production.up.railway.app/aesolutions/activities/sendNotification`, {
             'nameActivity': filteredActivities[i]._doc.nameActivity,
             'idActivity': filteredActivities[i]._doc._id,
              '_id': nSummary._id})
