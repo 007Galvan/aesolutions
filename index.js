@@ -17,7 +17,7 @@ const app = express();
 // ✅ Define allowed domains (local + production)
 const allowedOrigins = [
   process.env.FRONTEND_URL || "http://localhost:5173", 
-  "http://aesolutions-production.up.railway.app"
+  "https://aesolutions-production.up.railway.app"
 ];
 
 //  CORS configuration
