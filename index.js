@@ -14,21 +14,30 @@ import conectarDB from "./config/db.js";
 
 const app = express();
 
-const dominiosPermitidos = [process.env.FRONTEND_URL];
+// ✅ Define allowed domains (local + production)
+const allowedOrigins = [
+  process.env.FRONTEND_URL || "http://localhost:5173", 
+  "http://aesolutions-production.up.railway.app"
+];
 
+//  CORS configuration
 const corsOptions = {
   origin: function (origin, callback) {
-    if (dominiosPermitidos.indexOf(origin) !== -1) {
-      // El Origen del Request esta permitido
+    // allow requests with no origin (like Postman or curl)
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.error(" Bloqueado por CORS:", origin);
       callback(new Error("No permitido por CORS"));
     }
   },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], //  allow all needed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // allow common headers
 };
 
 app.use(cors(corsOptions));
-
+app.options("*", cors(corsOptions)); // handle preflight requests
+app.use(express.json())
 // app.use(cors({
 //   origin: process.env.FRONTEND_URL || "*", // allow your frontend
 //   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // allow all needed methods
@@ -43,7 +52,7 @@ dotenv.config();
 
 conectarDB();
 
-app.use(express.json())
+
 //decodifica la informacion y la convierte en formato json//
 app.use(express.urlencoded({extended:true}));
 //app.use(express.static(path.join(__dirname, 'public')));
